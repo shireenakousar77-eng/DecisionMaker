@@ -1,238 +1,191 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AI Decision Helper</title>
+<meta charset="UTF-8">
+<title>🚀 AI Decision Helper</title>
 
-    
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+    perspective: 1200px;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+/* TITLE */
+h1 {
+    margin: 20px;
+    font-size: 32px;
+    text-shadow: 0 0 20px cyan, 0 0 40px blue;
+    animation: glow 2s infinite alternate;
+}
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(-45deg, #1f1c2c, #928dab, #00c6ff, #0072ff);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-            color: white;
-        }
+@keyframes glow {
+    from { text-shadow: 0 0 10px cyan; }
+    to { text-shadow: 0 0 30px blue; }
+}
 
-        @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+.container {
+    width: 90%;
+    margin: auto;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 30px;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            transform: perspective(1000px);
-        }
+/* BUTTONS */
+button {
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.add-btn { background: linear-gradient(45deg, cyan, blue); }
+.find-btn { background: linear-gradient(45deg, gold, orange); }
+.clear-btn { background: linear-gradient(45deg, red, darkred); }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
-            margin-bottom: 20px;
-        }
+button:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.5);
+}
 
-        .slider-box {
-            margin-bottom: 15px;
-        }
+/* 3D CARD */
+.card {
+    background: rgba(255,255,255,0.1);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s, box-shadow 0.5s;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
 
-        label {
-            display: flex;
-            justify-content: space-between;
-        }
+/* HOVER 3D EFFECT */
+.card:hover {
+    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+}
 
-        input[type="range"] {
-            width: 100%;
-        }
+/* INPUTS */
+input {
+    padding: 10px;
+    width: 70%;
+    margin: 6px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+}
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
+/* RESULT */
+.result {
+    font-size: 22px;
+    margin-top: 20px;
+    color: lightgreen;
+    text-shadow: 0 0 10px green;
+    animation: pop 0.6s ease;
+}
 
-        button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+@keyframes pop {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
 
-        .add-btn {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0,114,255,0.5);
-        }
+/* FLOATING 3D BOX */
+.cube {
+    width: 60px;
+    height: 60px;
+    margin: 40px auto;
+    background: linear-gradient(45deg, cyan, blue);
+    border-radius: 10px;
+    animation: rotate3d 4s linear infinite;
+}
 
-        .add-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        .clear-btn {
-            background: linear-gradient(135deg, #ff4e50, #f9d423);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255,78,80,0.5);
-        }
-
-        .clear-btn:hover {
-            animation: shake 0.3s;
-        }
-
-        @keyframes shake {
-            0% {transform: translateX(0);}
-            25% {transform: translateX(-5px);}
-            50% {transform: translateX(5px);}
-            75% {transform: translateX(-5px);}
-            100% {transform: translateX(0);}
-        }
-
-        table {
-            width: 100%;
-            margin-top: 25px;
-            border-collapse: collapse;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        th {
-            background: rgba(255,255,255,0.2);
-            padding: 10px;
-        }
-
-        td {
-            padding: 10px;
-            text-align: center;
-            background: rgba(255,255,255,0.08);
-            transition: 0.3s;
-        }
-
-        tr:hover td {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.02);
-        }
-
-        .best {
-            margin-top: 20px;
-            padding: 18px;
-            border-radius: 15px;
-            text-align: center;
-            font-weight: bold;
-            background: linear-gradient(135deg, #00ff87, #60efff);
-            color: black;
-            box-shadow: 0 0 20px rgba(0,255,135,0.8);
-            animation: glow 1.5s infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 10px #00ff87; }
-            to { box-shadow: 0 0 30px #60efff; }
-        }
-    </style>
-
-    <script>
-        function updateValue(id, value) {
-            document.getElementById(id).innerText = value;
-        }
-    </script>
-
+@keyframes rotate3d {
+    0% { transform: rotateX(0) rotateY(0); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+</style>
 </head>
 
 <body>
 
+<h1>🚀 AI Decision Helper</h1>
+
 <div class="container">
+    <button class="add-btn" onclick="addProject()">➕ Add Project</button>
+    <button class="find-btn" onclick="findBest()">🏆 Find Best Project</button>
+    <button class="clear-btn" onclick="clearAll()">Clear</button>
 
-    <h1>🚀 AI Decision Helper</h1>
-
-    <form method="POST">
-
-        <input type="text" name="name" placeholder="Project Name" required>
-
-        <div class="slider-box">
-            <label>Cost <span id="costVal">5</span></label>
-            <input type="range" name="cost" min="0" max="10" value="5"
-                   oninput="updateValue('costVal', this.value)">
-        </div>
-
-        <div class="slider-box">
-            <label>Benefit <span id="benefitVal">5</span></label>
-            <input type="range" name="benefit" min="0" max="10" value="5"
-                   oninput="updateValue('benefitVal', this.value)">
-        </div>
-
-        <div class="slider-box">
-            <label>Risk <span id="riskVal">5</span></label>
-            <input type="range" name="risk" min="0" max="10" value="5"
-                   oninput="updateValue('riskVal', this.value)">
-        </div>
-
-        <div class="slider-box">
-            <label>Usage <span id="usageVal">5</span></label>
-            <input type="range" name="usage" min="0" max="10" value="5"
-                   oninput="updateValue('usageVal', this.value)">
-        </div>
-
-        <div class="btn-group">
-            <button class="add-btn" type="submit"> ➕Add</button>
-        </div>
-
-    </form>
-
-    <form method="POST" action="/clear">
-        <button class="clear-btn" type="submit">🗑️ Clear All</button>
-    </form>
-
-    {% if projects %}
-    <table>
-        <tr>
-            <th>Project</th>
-            <th>Cost</th>
-            <th>Benefit</th>
-            <th>Risk</th>
-            <th>Usage</th>
-            <th>Score</th>
-        </tr>
-
-        {% for p in projects %}
-        <tr>
-            <td>{{ p.name }}</td>
-            <td>{{ p.cost }}</td>
-            <td>{{ p.benefit }}</td>
-            <td>{{ p.risk }}</td>
-            <td>{{ p.usage }}</td>
-            <td><b>{{ p.score }}</b></td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-
-    {% if best %}
-    <div class="best">
-        🏆 Best Project: {{ best.name }} (Score: {{ best.score }})
-    </div>
-    {% endif %}
-
+    <div id="projects"></div>
+    <div class="result" id="result"></div>
 </div>
+
+<!-- 3D rotating element -->
+<div class="cube"></div>
+
+<script>
+let projectCount = 0;
+
+function addProject() {
+    projectCount++;
+
+    let div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+        <h3>Project ${projectCount}</h3>
+        <input type="text" placeholder="Project Name" class="name"><br>
+
+        <label>Risk (1-10)</label><br>
+        <input type="number" min="1" max="10" value="5" class="risk"><br>
+
+        <label>Cost (1-10)</label><br>
+        <input type="number" min="1" max="10" value="5" class="cost"><br>
+
+        <label>Usage (1-10)</label><br>
+        <input type="number" min="1" max="10" value="5" class="usage"><br>
+
+        <label>Benefits (1-10)</label><br>
+        <input type="number" min="1" max="10" value="5" class="benefit"><br>
+    `;
+
+    document.getElementById("projects").appendChild(div);
+}
+
+function findBest() {
+    let cards = document.getElementsByClassName("card");
+    let bestScore = -Infinity;
+    let bestProject = "";
+
+    for (let card of cards) {
+        let name = card.querySelector(".name").value;
+        let risk = parseInt(card.querySelector(".risk").value) || 0;
+        let cost = parseInt(card.querySelector(".cost").value) || 0;
+        let usage = parseInt(card.querySelector(".usage").value) || 0;
+        let benefit = parseInt(card.querySelector(".benefit").value) || 0;
+
+        let score = (benefit * 2 + usage * 2) - (risk + cost);
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestProject = name || "Unnamed Project";
+        }
+    }
+
+    document.getElementById("result").innerText =
+        bestProject ? "🏆 Best Project: " + bestProject : "Add projects first!";
+}
+
+function clearAll() {
+    document.getElementById("projects").innerHTML = "";
+    document.getElementById("result").innerText = "";
+    projectCount = 0;
+}
+</script>
 
 </body>
 </html>

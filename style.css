@@ -1,0 +1,74 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: white;
+    text-align: center;
+}
+
+.title {
+    margin-top: 30px;
+    font-size: 36px;
+}
+
+.card {
+    width: 320px;
+    margin: auto;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease;
+}
+
+input[type="text"], input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #00c6ff;
+    color: black;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buttons button:hover {
+    transform: scale(1.1);
+    background: #00ffcc;
+}
+
+.projectItem {
+    margin: 10px;
+    animation: slideUp 0.5s ease;
+}
+
+#result {
+    margin-top: 30px;
+    font-size: 26px;
+    background: #00ff99;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    animation: pop 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1;}
+}
+
+@keyframes slideUp {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1;}
+}
+
+@keyframes pop {
+    from {transform: scale(0.8);}
+    to {transform: scale(1);}
+}
